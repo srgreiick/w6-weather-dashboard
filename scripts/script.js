@@ -32,3 +32,37 @@ var APIKey = "5c178ef223e7b2e7f72ca653df149189";
           console.log("Humidity: " + response.main.humidity);
           console.log("Temperature (F): " + tempF);
         });
+
+
+        // Generic function for capturing the movie name from the data-attribute
+        function alertMovieName() {
+          var movieName = $(this).attr("data-name");
+  
+          alert(movieName);
+        }
+  
+
+  //--------------------------------------------------------------------------------------------------------------------
+        // This function handles events where one button is clicked
+        $("#add-movie").on("click", function(event) {
+          // Preventing the buttons default behavior when clicked (which is submitting a form)
+          event.preventDefault();
+          // This line grabs the input from the textbox
+          var movie = $("#city-input").val().trim();
+  
+          // Adding the movie from the textbox to our array
+          movies.push(movie);
+  
+          // Calling renderButtons which handles the processing of our movie array
+          renderButtons();
+  
+        });
+  
+        // Function for displaying the movie info
+        // We're adding a click event listener to all elements with the class "movie"
+        // We're adding the event listener to the document because it will work for dynamically generated elements
+        // $(".movies").on("click") will only add listeners to elements that are on the page at that time
+        $(document).on("click", ".movie", alertMovieName);
+  
+        // Calling the renderButtons function to display the initial buttons
+        renderButtons();
