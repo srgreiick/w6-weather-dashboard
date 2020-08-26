@@ -1,0 +1,17 @@
+.row1{
+    width: 20%;
+    
+    background-color: royalblue;
+    float: left;
+}
+.row2{
+    width: 80%;
+    
+    background-color: red;
+    float: left;
+}
+/* .row3{
+    width: 33%;
+    background-color: green;
+    float: left;
+} */

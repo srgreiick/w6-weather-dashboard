@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<link rel="stylesheet" href="./styles/style.css">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/style.css">
-    <title>Weather Tracker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Weather Tracker</title>
+
 </head>
+
 <body>
-    <h1>Weather Tracker</h1>
-      <!-- Retrieved data will be dumped here -->
-      <div id="buttons-view"></div>
+  <h1>Weather Tracker</h1>
+  <!-- Retrieved data will be dumped here -->
+  <div id="buttons-view"></div>
+  <div class="container">
+    <div class="row1" id="history">History</div>   
+<div class="row2">       
+   <form id="city-form">
+  <label for="city-input">Enter City</label>
+  <input type="text" id="city-input"><br>
 
-    <form id="movie-form">
-      <label for="city-input">Enter City</label>
-      <input type="text" id="city-input"><br>
-
-      <!-- Button triggers new movie to be added -->
-      <input id="add-city" type="submit" value="Select City">
-    </form>
-  <div class="city"></div>
-  <div class="wind"></div>
-  <div class="humidity"></div>
-  <div class="temp"></div>
+  <!-- Button triggers new city to be added -->
+  <input id="add-city" type="submit" value="Select City">
+</form>
+<div class="city"></div>
+<div class="wind"></div>
+<div class="humidity"></div>
+<div class="temp"></div>
+<div class="tempF"></div></div>
+      
+ 
+  <div class="row3"></div>  
+</div> 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </body>
 <script src="./scripts/script.js"></script>
+
 </html>
