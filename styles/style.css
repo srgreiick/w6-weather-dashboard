@@ -1,17 +1,34 @@
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .row1{
     width: 20%;
     
     background-color: royalblue;
     float: left;
 }
+
 .row2{
     width: 80%;
-    
-    background-color: red;
+    background-position: -100px;
+    background-color: lavender;
     float: left;
 }
-/* .row3{
-    width: 33%;
-    background-color: green;
-    float: left;
-} */
+
+
+.uvRed{
+ background-color: red;
+}
+
+.uvGreen{
+background-color:   green;
+}
+
+.uvYellow{
+background-color: yellow;
+}
+
+.cityClass:hover{
+    cursor: pointer;
+}

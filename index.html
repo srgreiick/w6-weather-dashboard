@@ -16,25 +16,27 @@
   <!-- Retrieved data will be dumped here -->
   <div id="buttons-view"></div>
   <div class="container">
-    <div class="row1" id="history">History</div>   
-<div class="row2">       
-   <form id="city-form">
-  <label for="city-input">Enter City</label>
-  <input type="text" id="city-input"><br>
+    <div class="row1" id="history">History</div>
+    <div class="row2">
+      <form id="city-form">
+        <label for="city-input">Enter City</label>
+        <input type="text" id="city-input"><br>
 
-  <!-- Button triggers new city to be added -->
-  <input id="add-city" type="submit" value="Select City">
-</form>
-<div class="city"></div>
-<div class="currentDay"></div>
-<div class="wind"></div>
-<div class="humidity"></div>
-<div class="temp"></div>
-<div class="tempF"></div></div>
-      
- 
-  <div class="row3"></div>  
-</div> 
+        <!-- Button triggers new city to be added -->
+        <input id="add-city" type="submit" value="Select City">
+      </form>
+      <div class="city"></div>
+      <div class="currentDay"></div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+      <div class="temp"></div>
+      <div class="tempF"></div>
+      <div id="uvIndex">UV index: <span id="uvSpan"></span></div>
+    </div>
+
+
+    <div class="row3"></div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
