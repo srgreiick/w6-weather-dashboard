@@ -14,6 +14,7 @@ let lat;
 let lon;
 let UtC;
 let queryURI;
+let uvIndex;
 
 $.ajax({
   url: queryURL,
@@ -51,8 +52,9 @@ $.ajax({
             method: "GET"
           })
             .then(function(response) {
-              var uvIndex = response.current.uvi;
-              $("#uvSpan").text("UV Index: "+response.current.uvi);
+              uvIndex = response.current.uvi;
+              $("#uvSpan").text(response.current.uvi);
+              $("#uvSpan").removeClass();
               if (uvIndex < 6) {
                 $("#uvSpan").addClass("uvGreen");
               } else if (uvIndex > 6 && uvIndex < 8) {
@@ -127,8 +129,30 @@ $("#add-city").on("click", function(event) {
       $(".cityClass").on("click", function(event) {
         cityHist(event)
       });
+          console.log(response);
+    lon=response.coord.lon
+    console.log(lon);
+    lat=response.coord.lat
+    console.log(lon);
+          secondQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=17ffeabcb0395a48b5f63a70619d8c8e";
+        $.ajax({
+            url: secondQueryURL,
+            method: "GET"
+          })
+            .then(function(response) {
+              uvIndex = response.current.uvi;
+              $("#uvSpan").text(response.current.uvi);
+              $("#uvSpan").removeClass();
+              if (uvIndex < 6) {
+                $("#uvSpan").addClass("uvGreen");
+              } else if (uvIndex > 6 && uvIndex < 8) {
+                $("#uvSpan").addClass("uvYellow");
+              } else if (uvIndex >= 8) {
+                $("#uvSpan").addClass("uvRed");
+              }
 
-       
+            });    
+            
 });
             
 });
@@ -163,7 +187,7 @@ $.ajax({
       $(".city").html("<h1>" + response.name + " Weather Details</h1>");
       $(".currentDay").text("-------- "+currentDate+" --------");
       $(".wind").text("Wind Speed: " + response.wind.speed);
-      $(".humidity").text("Humidity: " + response.main.humidity);
+      $(".humidity").text("Humidit y: " + response.main.humidity);
       
       // Convert the temp to fahrenheit
       let tempF = (response.main.temp - 273.15) * 1.80 + 32;
@@ -178,7 +202,28 @@ $.ajax({
       console.log("Temperature (F): " + tempF);
       localStorage.setItem("city",city)
 
-
+      lon=response.coord.lon
+      console.log(lon);
+      lat=response.coord.lat
+      console.log(lon);
+            secondQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=17ffeabcb0395a48b5f63a70619d8c8e";
+          $.ajax({
+              url: secondQueryURL,
+              method: "GET"
+            })
+              .then(function(response) {
+                uvIndex = response.current.uvi;
+                $("#uvSpan").text(response.current.uvi);
+                $("#uvSpan").removeClass();
+                if (uvIndex < 6) {
+                  $("#uvSpan").addClass("uvGreen");
+                } else if (uvIndex > 6 && uvIndex < 8) {
+                  $("#uvSpan").addClass("uvYellow");
+                } else if (uvIndex >= 8) {
+                  $("#uvSpan").addClass("uvRed");
+                }
+  
+              });    
 
 
 
