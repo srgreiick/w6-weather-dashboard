@@ -14,21 +14,40 @@ body{
     background-position: -100px;
     background-color: lavender;
     float: left;
+    line-height: 1.5;
 }
 
 
 .uvRed{
  background-color: red;
+ color: white;
+ border-radius: 20%;
 }
 
 .uvGreen{
 background-color:   green;
+color: white;
+border-radius: 20%;
 }
 
 .uvYellow{
 background-color: yellow;
+border-radius: 20%;
 }
 
 .cityClass:hover{
     cursor: pointer;
+}
+
+.card-body{
+    background-color: thistle;
+}
+.card-body .card{
+    width: 16%;
+    margin:5px;
+    padding: 10px;
+    background-color: whitesmoke;
+    border-radius: 20%;
+    float: left;
+    display: block;
 }

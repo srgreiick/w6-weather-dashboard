@@ -1,13 +1,12 @@
 let APIKey = "5c178ef223e7b2e7f72ca653df149189";
 let city;
 let prevCities = []
-console.log(prevCities)
 
 let currentDate = moment().format(" Do MMMM");
 let now = moment().format("HH:MM")
 let nowUnix = moment().format("X")
 
-console.log(nowUnix);
+
 let localCity = localStorage.getItem("city")
 let queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+localCity+"&appid=" + APIKey;
 let lat;
@@ -23,21 +22,19 @@ $.ajax({
   // We store all of the retrieved data inside of an object called "response"
   .then(function(response) {
 
-    // Log the queryURL
-    console.log(queryURL);
 
     // Log the resulting object
-    console.log(response);
+
     lon=response.coord.lon
-    console.log(lon);
+    
     lat=response.coord.lat
-    console.log(lon);
+    
 
     // Transfer content to HTML
     $(".city").html("<h1>" + response.name + " Weather Details</h1>");
     $(".currentDay").text("-------- "+currentDate+" --------");
     $(".wind").text("Wind Speed: " + response.wind.speed);
-    $(".humidity").text("Humidity: " + response.main.humidity);
+    $(".humidity").text("Humidity: " + response.main.humidity+"%");
     
     // Convert the temp to fahrenheit
     let tempF = (response.main.temp - 273.15) * 1.80 + 32;
@@ -62,7 +59,34 @@ $.ajax({
               } else if (uvIndex >= 8) {
                 $("#uvSpan").addClass("uvRed");
               }
+              $(".card-body").empty()  
+              for (let i = 0; i < 5; i++) {
+console.log(response.daily[i]); 
+let tempFar = ((response.daily[i].temp.day - 273.15) * 1.80 + 32).toFixed(0);
+  let day = 1000*(response.daily[i].dt)
+  let cday = new Date(day)
+  let human = cday.toLocaleString("en-US",{weekday:"long"})
+  
+  console.log(human);
+  uvI = response.daily[i].uvi;
+            
+  $(".card-body").append(`<div class="card card_${i}">
+  <h3>${human}</h3>
+  <div class="humidity">${response.daily[i].humidity}%</div>
+  <div class="tempF">${tempFar} F</div>
+  <div id="uvIndex">UV index: <span style="padding: 2px;" id="uvSpan_${i}"></span></div>
+  </div>`)
+  $("#uvSpan_"+i+"").text(response.daily[i].uvi);
+  $("#uvSpan_"+i+"").removeClass();
+  if (uvI < 6) {
+    $("#uvSpan_"+i+"").addClass("uvGreen");
+  } else if (uvI > 6 && uvI < 8) {
+    $("#uvSpan_"+i+"").addClass("uvYellow");
+  } else if (uvI >= 8) {
+    $("#uvSpan_"+i+"").addClass("uvRed");
+  }
 
+              }
     });
 });
 
@@ -87,17 +111,13 @@ $("#add-city").on("click", function(event) {
       // We store all of the retrieved data inside of an object called "response"
       .then(function(response) {
 
-        // Log the queryURL
-        console.log(queryURL);
 
-        // Log the resulting object
-        console.log(response);
 
         // Transfer content to HTML
         $(".city").html("<h1>" + response.name + " Weather Details</h1>");
         $(".currentDay").text("-------- "+currentDate+" --------");
         $(".wind").text("Wind Speed: " + response.wind.speed);
-        $(".humidity").text("Humidity: " + response.main.humidity);
+        $(".humidity").text("Humidity: " + response.main.humidity+"%");
         
         // Convert the temp to fahrenheit
         let tempF = (response.main.temp - 273.15) * 1.80 + 32;
@@ -106,10 +126,6 @@ $("#add-city").on("click", function(event) {
         $(".temp").text("Temperature (K) " + response.main.temp);
         $(".tempF").text("Temperature (F) " + tempF.toFixed(2));
 
-        // Log the data in the console as well
-        console.log("Wind Speed: " + response.wind.speed);
-        console.log("Humidity: " + response.main.humidity);
-        console.log("Temperature (F): " + tempF);
 
         if(jQuery.inArray(city, prevCities) != -1) {
           console.log("is in array");
@@ -124,16 +140,15 @@ $("#add-city").on("click", function(event) {
       }
       for (let i = 0; i < prevCities.length; i++) {
         $("#history").append("<p class='cityClass'>"+prevCities[i]+"</p>");
-        console.log(prevCities)
       }
       $(".cityClass").on("click", function(event) {
         cityHist(event)
       });
           console.log(response);
     lon=response.coord.lon
-    console.log(lon);
+    
     lat=response.coord.lat
-    console.log(lon);
+    
           secondQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=17ffeabcb0395a48b5f63a70619d8c8e";
         $.ajax({
             url: secondQueryURL,
@@ -150,9 +165,36 @@ $("#add-city").on("click", function(event) {
               } else if (uvIndex >= 8) {
                 $("#uvSpan").addClass("uvRed");
               }
-
-            });    
+              $(".card-body").empty()  
+              for (let i = 0; i < 5; i++) {
+console.log(response.daily[i]); 
+let tempFar = ((response.daily[i].temp.day - 273.15) * 1.80 + 32).toFixed(0);
+  let day = 1000*(response.daily[i].dt)
+  let cday = new Date(day)
+  let human = cday.toLocaleString("en-US",{weekday:"long"})
+  
+  console.log(human);
+  uvI = response.daily[i].uvi;
             
+  $(".card-body").append(`<div class="card card_${i}">
+  <h3>${human}</h3>
+  <div class="humidity">${response.daily[i].humidity}%</div>
+  <div class="tempF">${tempFar} F</div>
+  <div id="uvIndex">UV index: <span style="padding: 2px;" id="uvSpan_${i}"></span></div>
+  </div>`)
+  $("#uvSpan_"+i+"").text(response.daily[i].uvi);
+  $("#uvSpan_"+i+"").removeClass();
+  if (uvI < 6) {
+    $("#uvSpan_"+i+"").addClass("uvGreen");
+  } else if (uvI > 6 && uvI < 8) {
+    $("#uvSpan_"+i+"").addClass("uvYellow");
+  } else if (uvI >= 8) {
+    $("#uvSpan_"+i+"").addClass("uvRed");
+  }
+
+              }
+            });    
+
 });
             
 });
@@ -197,15 +239,12 @@ $.ajax({
       $(".tempF").text("Temperature (F) " + tempF.toFixed(2));
 
       // Log the data in the console as well
-      console.log("Wind Speed: " + response.wind.speed);
-      console.log("Humidity: " + response.main.humidity);
-      console.log("Temperature (F): " + tempF);
       localStorage.setItem("city",city)
 
       lon=response.coord.lon
-      console.log(lon);
+      
       lat=response.coord.lat
-      console.log(lon);
+      
             secondQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=17ffeabcb0395a48b5f63a70619d8c8e";
           $.ajax({
               url: secondQueryURL,
@@ -222,7 +261,34 @@ $.ajax({
                 } else if (uvIndex >= 8) {
                   $("#uvSpan").addClass("uvRed");
                 }
+                $(".card-body").empty()  
+              for (let i = 0; i < 5; i++) {
+console.log(response.daily[i]); 
+let tempFar = ((response.daily[i].temp.day - 273.15) * 1.80 + 32).toFixed(0);
+  let day = 1000*(response.daily[i].dt)
+  let cday = new Date(day)
+  let human = cday.toLocaleString("en-US",{weekday:"long"})
   
+  console.log(human);
+  uvI = response.daily[i].uvi;
+            
+  $(".card-body").append(`<div class="card card_${i}">
+  <h3>${human}</h3>
+  <div class="humidity">${response.daily[i].humidity}%</div>
+  <div class="tempF">${tempFar} F</div>
+  <div id="uvIndex">UV index: <span style="padding: 2px;" id="uvSpan_${i}"></span></div>
+  </div>`)
+  $("#uvSpan_"+i+"").text(response.daily[i].uvi);
+  $("#uvSpan_"+i+"").removeClass();
+  if (uvI < 6) {
+    $("#uvSpan_"+i+"").addClass("uvGreen");
+  } else if (uvI > 6 && uvI < 8) {
+    $("#uvSpan_"+i+"").addClass("uvYellow");
+  } else if (uvI >= 8) {
+    $("#uvSpan_"+i+"").addClass("uvRed");
+  }
+
+              }
               });    
 
 
